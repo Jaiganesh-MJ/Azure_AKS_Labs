@@ -19,14 +19,12 @@ terraform {
       version = "0.9.1"
     }
   }
-  backend "remote" {
-		hostname = "app.terraform.io"
-		organization = "CloudQuickLabs"
-
-		workspaces {
-			name = "AzureAKSLabs"
-		}
-	}
+  backend "azurerm" {
+    resource_group_name  = "aks-practice"
+    storage_account_name = "akspracticejai"
+    container_name       = "aks-tfstate"
+    key                  = "dev.terraform.tfstate"
+  }
 }
 
 provider "azurerm" {

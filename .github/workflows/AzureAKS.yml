@@ -27,7 +27,6 @@ jobs:
         uses: hashicorp/setup-terraform@v2.0.2
         with:
           terraform_version: latest
-          cli_config_credentials_token: ${{ secrets.TFC_TOKEN_ID }}
 
       - name: Terraform Init
         id: init
@@ -52,10 +51,10 @@ jobs:
       - name: Terraform Output
         run: terraform output
 
-      #- name: Deploy Application
-      #  run: |
-      #    az aks get-credentials -n "cluster-bursting-jennet" -g "rg-refined-swine"
-      #    kubectl apply -f ./AKSApp/aks-store-quickstart.yaml
-      #    sleep 40
-      #    kubectl get service store-front
-      #    rm -rf ~/.kube
+      - name: Deploy Application
+        run: |
+          az aks get-credentials -n "cluster-bursting-jennet" -g "rg-refined-swine"
+          kubectl apply -f ./AKSApp/aks-store-quickstart.yaml
+          sleep 40
+          kubectl get service store-front
+          rm -rf ~/.kube
